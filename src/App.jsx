@@ -1,8 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 import Home from './pages/Home'
+import Article from './pages/Article'
 import { useState, useEffect } from 'react'
 import ThemeContext from './configs/ThemeContext'
+import { Routes, Route, Navigate } from 'react-router-dom'
 
 function App() {
 
@@ -37,9 +39,12 @@ function App() {
   }, [theme]) // Re-run if theme changes
 
   return (
-    <>
-      <Home />
-    </>
+    <ThemeContext.Provider value={{theme, setTheme}}>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/article' element={<Article />} />
+      </Routes>
+    </ThemeContext.Provider>
   )
 }
 
