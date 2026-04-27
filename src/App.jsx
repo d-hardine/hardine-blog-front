@@ -1,7 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 import Home from './pages/Home'
-import Article from './pages/Article'
+import Post from './pages/Post'
+import Login from './pages/Login'
+import Signup from './pages/Signup'
 import { useState, useEffect } from 'react'
 import ThemeContext from './configs/ThemeContext'
 import { Routes, Route, Navigate } from 'react-router-dom'
@@ -42,7 +44,9 @@ function App() {
     <ThemeContext.Provider value={{theme, setTheme}}>
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/article' element={<Article />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/post/:postId' element={<Post />} />
       </Routes>
     </ThemeContext.Provider>
   )

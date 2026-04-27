@@ -1,7 +1,7 @@
-function TagCard() {
+function CategoryCard() {
   return (
     <div className="tag-card">
-      <h3>Tags</h3>
+      <h3>Categories</h3>
       <div className="tag-body lh-lg">
         <span className="bg-primary p-1 small fw-bold">SMARTPHONE</span>{' '}
         <span className="bg-primary p-1 small fw-bold">TABLET</span>{' '}
@@ -14,4 +14,4 @@ function TagCard() {
   )
 }
 
-export default TagCard
+export default CategoryCard
