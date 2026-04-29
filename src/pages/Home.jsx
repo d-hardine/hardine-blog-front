@@ -8,30 +8,31 @@ import Image from "react-bootstrap/Image"
 import { Link } from "react-router-dom"
 import api from '../configs/api'
 import { useState, useEffect, useContext } from "react"
-import ThemeContext from '../configs/ThemeContext'
+import UserContext from "../configs/UserContext"
+import auth from "../configs/auth"
 import Spinner from 'react-bootstrap/Spinner'
 
 function Home() {
 
-  const { theme } = useContext(ThemeContext)
-
   const [allPosts, setAllPosts] = useState()
   const [isLoading, setIsLoading] = useState(true)
 
-  const retrieveAllPosts = async () => {
-    try {
-      const retrieveResponse = await api.get('/all-posts')
-      if (retrieveResponse.status === 200) {
-        setAllPosts(retrieveResponse.data.allPosts)
-      }
-    } catch (err) {
-      console.error(err)
-    } finally {
-      setIsLoading(false)
-    }
-  }
+  const { setUser } = useContext(UserContext)
 
   useEffect(() => {
+    const retrieveAllPosts = async () => {
+      try {
+        const retrieveResponse = await api.get('/all-posts')
+        if (retrieveResponse.status === 200) {
+          setAllPosts(retrieveResponse.data.allPosts)
+        }
+      } catch (err) {
+        console.error(err)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    auth(setUser)
     retrieveAllPosts()
   }, [])
 

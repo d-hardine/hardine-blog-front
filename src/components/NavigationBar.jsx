@@ -1,3 +1,5 @@
+import ThemeContext from "../configs/ThemeContext"
+import UserContext from "../configs/UserContext"
 import Container from "react-bootstrap/Container"
 import Nav from "react-bootstrap/Nav"
 import Navbar from "react-bootstrap/Navbar"
@@ -5,13 +7,20 @@ import NavDropdown from 'react-bootstrap/NavDropdown'
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import Form from "react-bootstrap/Form"
-import InputGroup from 'react-bootstrap/InputGroup';
+import InputGroup from 'react-bootstrap/InputGroup'
 import Button from "react-bootstrap/Button"
+import Image from "react-bootstrap/Image"
 import { Link } from "react-router-dom"
-import { useState } from "react"
+import { useContext, useState } from "react"
+import lightDarkIconBlack from '../assets/light-dark-icon-black.svg'
+import lightDarkIconWhite from '../assets/light-dark-icon-white.svg'
+import logout from "../configs/logout"
 import './NavigationBar.css'
 
 function NavigationBar() {
+
+  const { theme, setTheme } = useContext(ThemeContext)
+  const { user, setUser } = useContext(UserContext)
 
   const [searchInput, setSearchInput] = useState('')
 
@@ -20,6 +29,11 @@ function NavigationBar() {
     console.log(searchInput)
     setSearchInput('')
     e.target.reset()
+  }
+
+  //Allow the user to manually toggle the theme
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   }
 
   return (
@@ -39,7 +53,16 @@ function NavigationBar() {
           </Form>
           </Nav>
           <Nav className="ms-auto navbar-right-side">  {/* Use ms-auto to push items to the end */}
-            <Nav.Link as={Link} to="/login">Login</Nav.Link>
+            <Button size="sm" variant={theme === 'dark' ? 'dark' : 'light'} onClick={toggleTheme}>
+              <Image src={theme === 'dark' ? lightDarkIconWhite : lightDarkIconBlack} width="20" height="20" className="d-inline-block align-top" alt="React Bootstrap logo" />
+            </Button>
+            {!user ? (
+              <Nav.Link as={Link} to="/login">Login</Nav.Link>
+            ) : (
+              <NavDropdown title={user.name} id="account-nav-dropdown">
+                <NavDropdown.Item onClick={() => logout(setUser)}>LOG OUT</NavDropdown.Item>
+              </NavDropdown>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

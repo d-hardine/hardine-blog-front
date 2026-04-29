@@ -8,8 +8,8 @@ function ArticleCard({ post }) {
       <Image src={post.thumbnail} className="object-fit-cover" width="250px" height="175px" rounded />
       <div className="article-body">
         <div className="article-tags d-flex gap-2">
-          <div className="bg-primary p-1 small fw-bold">SMARTPHONE</div>
-          <div className="bg-primary p-1 small fw-bold">ANDROID</div>
+          <div className="bg-primary bg-gradient p-1 small fw-bold">SMARTPHONE</div>
+          <div className="bg-primary bg-gradient p-1 small fw-bold">ANDROID</div>
         </div>
         <h4 className="mt-2 fw-bold">
           <Link to={`/post/${post.id}`} className="text-decoration-none">{post.title}</Link>

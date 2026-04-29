@@ -6,9 +6,13 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import { useState, useEffect } from 'react'
 import ThemeContext from './configs/ThemeContext'
+import UserContext from './configs/UserContext'
 import { Routes, Route, Navigate } from 'react-router-dom'
 
 function App() {
+
+  //user data state from here
+  const [user, setUser] = useState(null)
 
   // Function to detect theme OS preference
   const getSystemPreference = () => {
@@ -42,12 +46,14 @@ function App() {
 
   return (
     <ThemeContext.Provider value={{theme, setTheme}}>
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/signup' element={<Signup />} />
-        <Route path='/post/:postId' element={<Post />} />
-      </Routes>
+      <UserContext.Provider value={{user, setUser}}>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/post/:postId' element={<Post />} />
+        </Routes>
+      </UserContext.Provider>
     </ThemeContext.Provider>
   )
 }

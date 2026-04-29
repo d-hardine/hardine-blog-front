@@ -1,4 +1,6 @@
 import api from "../configs/api"
+import auth from "../configs/auth"
+import UserContext from "../configs/UserContext"
 import NavigationBar from "../components/NavigationBar"
 import TagCard from "../components/CategoryCard"
 import Container from "react-bootstrap/Container"
@@ -6,7 +8,7 @@ import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import Image from "react-bootstrap/Image"
 import { useParams } from "react-router-dom"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import { formatRelative } from "date-fns"
 import Spinner from 'react-bootstrap/Spinner'
 
@@ -14,25 +16,28 @@ function Post() {
 
   const params = useParams()
 
+  const { setUser } = useContext(UserContext)
+
   const [post, setPost] = useState()
   const [isLoading, setIsLoading] = useState(true)
 
-  const retrievePost = async () => {
-    try {
-      const retrieveResponse = await api.get(`/post/${params.postId}`)
-      if (retrieveResponse.status === 200) {
-        setPost(retrieveResponse.data.post)
-      }
-    } catch (err) {
-      console.error(err)
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
   useEffect(() => {
+    const retrievePost = async () => {
+      try {
+        const retrieveResponse = await api.get(`/post/${params.postId}`)
+        if (retrieveResponse.status === 200) {
+          setPost(retrieveResponse.data.post)
+        }
+      } catch (err) {
+        console.error(err)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    auth(setUser)
     retrievePost()
-  }, [])
+  }, [params.postId])
 
   return (
     <>

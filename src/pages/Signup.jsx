@@ -7,7 +7,7 @@ import Form from "react-bootstrap/Form"
 import Button from "react-bootstrap/Button"
 import Alert from "react-bootstrap/Alert"
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 function Signup() {
 
@@ -18,9 +18,10 @@ function Signup() {
   const [showAlert, setShowAlert] = useState(false)
   const [errors, setErrors] = useState([])
 
+  const navigate = useNavigate()
+
   const handleSignup = async (e) => {
     e.preventDefault()
-    console.log('signing up...')
     const newUser = {
       username,
       displayName,
@@ -29,15 +30,13 @@ function Signup() {
     }
     try {
       const signupResponse = await api.post('/signup', newUser)
-      /*
       if(signupResponse.status === 201) { //immediate login after successful signup
         const loginUser = { username, password }
         const loginResponse = await api.post('/login', loginUser)
         if (loginResponse.status === 201)
-          setUser(loginResponse.data)
-          navigate('/home')
+          localStorage.setItem('token', loginResponse.data.token)
+          navigate('/')
       }
-      */
     } catch (err) { //if error happened, e.g invalid form input
       console.error(err)
       setErrors(err.response.data.errors)
