@@ -5,26 +5,28 @@ import NavigationBar from "../components/NavigationBar"
 import TagCard from "../components/TagCard"
 import ArticleCard from "../components/ArticleCard"
 import Image from "react-bootstrap/Image"
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import api from '../configs/api'
 import { useState, useEffect, useContext } from "react"
 import UserContext from "../configs/UserContext"
 import auth from "../configs/auth"
 import Spinner from 'react-bootstrap/Spinner'
 
-function Home() {
+function Tag() {
 
-  const [allPosts, setAllPosts] = useState()
+  const params = useParams()
+
+  const [specificPosts, setSpecificPosts] = useState()
   const [isLoading, setIsLoading] = useState(true)
 
   const { setUser } = useContext(UserContext)
 
   useEffect(() => {
-    const retrieveAllPosts = async () => {
+    const retrieveSpecificPosts = async () => {
       try {
-        const retrieveResponse = await api.get('/all-posts')
+        const retrieveResponse = await api.get(`/specific-posts/${params.tagName}`)
         if (retrieveResponse.status === 200) {
-          setAllPosts(retrieveResponse.data.allPosts)
+          setSpecificPosts(retrieveResponse.data.specificPosts)
         }
       } catch (err) {
         console.error(err)
@@ -33,8 +35,8 @@ function Home() {
       }
     }
     auth(setUser)
-    retrieveAllPosts()
-  }, [])
+    retrieveSpecificPosts()
+  }, [params.tagName])
 
   return (
     <>
@@ -43,8 +45,8 @@ function Home() {
         {isLoading ? (<Spinner animation="border" variant="info" />) : (
           <Row className="pt-5">
             <Col className="col-9">
-              <h3 className="pb-3">Latest Articles</h3>
-                {allPosts.map((post) => (
+              <h3 className="pb-3">Category: {params.tagName}</h3>
+                {specificPosts.map((post) => (
                   <ArticleCard post={post} key={post.id} />
                 ))}
             </Col>
@@ -58,4 +60,4 @@ function Home() {
   )
 }
 
-export default Home
+export default Tag

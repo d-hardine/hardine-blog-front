@@ -43,8 +43,8 @@ function NavigationBar() {
         <Navbar.Toggle aria-controls="account-navbar-nav" />
         <Navbar.Collapse id="account-navbar-nav">
           <Nav className="me-auto navbar-left-side">
-            <Nav.Link href="#smartphone">Smartphone</Nav.Link>
-            <Nav.Link href="#link">PC</Nav.Link>
+            <Nav.Link as={Link} to="/tag/SMARTPHONE">Smartphone</Nav.Link>
+            <Nav.Link as={Link} to="/tag/PC">PC</Nav.Link>
             <Form onSubmit={handleSearch}>
               <InputGroup>
               <Form.Control type="text" placeholder="Search here..." className=" mr-sm-2" onChange={(e) => setSearchInput(e.target.value)} />

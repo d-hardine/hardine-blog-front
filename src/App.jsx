@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import Post from './pages/Post'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import Tag from './pages/Tag'
 import { useState, useEffect } from 'react'
 import ThemeContext from './configs/ThemeContext'
 import UserContext from './configs/UserContext'
@@ -52,6 +53,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/post/:postId' element={<Post />} />
+          <Route path='/Tag/:tagName' element={<Tag />} />
         </Routes>
       </UserContext.Provider>
     </ThemeContext.Provider>
