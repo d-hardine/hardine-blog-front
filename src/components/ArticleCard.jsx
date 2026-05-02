@@ -5,7 +5,7 @@ import { formatRelative } from "date-fns"
 function ArticleCard({ post }) {
   return (
     <article className="pt-3 pb-3 d-flex gap-4 article-card">
-      <Image src={post.thumbnail} className="object-fit-cover" width="250px" height="175px" rounded />
+      <Image src={post.postPicture} className="object-fit-cover" width="250px" height="175px" rounded />
       <div className="article-body">
         <div className="article-tags d-flex gap-2">
           {post.tags.map(tag => (

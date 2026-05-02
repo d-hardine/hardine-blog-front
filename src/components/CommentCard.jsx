@@ -1,12 +1,9 @@
 import './CommentCard.css'
 import Image from 'react-bootstrap/Image'
-import ThemeContext from "../configs/ThemeContext"
 import { useContext } from "react"
 import { formatDistanceToNow, format } from "date-fns"
 
 function CommentCard({ comment }) {
-
-  const { theme } = useContext(ThemeContext)
 
   return (
     <div className="comment-container d-flex p-3 gap-3 border">
