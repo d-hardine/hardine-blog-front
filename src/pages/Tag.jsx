@@ -44,13 +44,13 @@ function Tag() {
       <Container>
         {isLoading ? (<Spinner animation="border" variant="info" />) : (
           <Row className="pt-5">
-            <Col className="col-9">
+            <Col className="col-lg-9">
               <h3 className="pb-3">Category: {params.tagName}</h3>
                 {specificPosts.map((post) => (
                   <ArticleCard post={post} key={post.id} />
                 ))}
             </Col>
-            <Col>
+            <Col className="d-none d-lg-block">
               <TagCard />
             </Col>
           </Row>

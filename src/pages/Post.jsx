@@ -24,7 +24,7 @@ function Post() {
 
   const [post, setPost] = useState()
   const [isLoading, setIsLoading] = useState(true)
-  const [comments, setComments] = useState()
+  const [comments, setComments] = useState([])
   const [newComment, setNewComment] = useState('')
   const [isCommentLoading, setIsCommentLoading] = useState(true)
   const [isSendingNewComment, setIsSendingNewComment] = useState(false)
@@ -87,7 +87,7 @@ function Post() {
       <Container>
         {isLoading ? (<Spinner animation="border" variant="info" />) : (
           <Row className="pt-5">
-            <Col className="col-9">
+            <Col className="col-lg-9 mb-4">
               <div className="article-tags d-flex gap-2">
                 {post.tags.map(tag => (
                   <Link to={`/tag/${tag.name}`} key={tag.id} className='text-decoration-none text-light'>
@@ -99,9 +99,9 @@ function Post() {
               <h5 className="mt-2 fw-lighter text-secondary">{post.subtitle}</h5>
               <div className="fw-lighter">By {post.author.name}, {formatRelative(post.createdAt, new Date())}</div>
               <Image src={post.postPicture} className="object-fit-cover mt-3" width="100%" rounded />
-              <p>
+              <div className="mt-3">
                 {parse(post.content)}
-              </p>
+              </div>
 
               <div className="mt-3 mb-3"><b>COMMENT SECTION</b></div>
 
@@ -118,13 +118,17 @@ function Post() {
                       {isSendingNewComment && (<Spinner className="mx-3" animation="grow" variant="info" size="sm" />)}
                     </Form>
                   )}
-                  {comments.map((comment) => (
+                  {comments.length === 0 ?
+
+                    (<div className="text-muted">Be the first to comment</div>) : 
+
+                    comments.map((comment) => (
                     <CommentCard comment={comment} key={comment.id} />
                   ))}
                 </>
               )}
             </Col>
-            <Col>
+            <Col className="d-none d-lg-block">
               <TagCard />
             </Col>
           </Row>
