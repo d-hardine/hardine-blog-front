@@ -10,7 +10,7 @@ import Form from "react-bootstrap/Form"
 import InputGroup from 'react-bootstrap/InputGroup'
 import Button from "react-bootstrap/Button"
 import Image from "react-bootstrap/Image"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useContext, useState } from "react"
 import lightDarkIconBlack from '../assets/light-dark-icon-black.svg'
 import lightDarkIconWhite from '../assets/light-dark-icon-white.svg'
@@ -22,13 +22,16 @@ function NavigationBar() {
   const { theme, setTheme } = useContext(ThemeContext)
   const { user, setUser } = useContext(UserContext)
 
-  const [searchInput, setSearchInput] = useState('')
+  const [searchTerm, setSearchTerm] = useState('')
+
+  const navigate = useNavigate()
 
   const handleSearch = (e) => {
     e.preventDefault()
-    console.log(searchInput)
-    setSearchInput('')
     e.target.reset()
+    const queryString = new URLSearchParams({q: searchTerm}).toString()
+    navigate(`/search?${queryString}`)
+    setSearchTerm('')
   }
 
   //Allow the user to manually toggle the theme
@@ -47,7 +50,7 @@ function NavigationBar() {
             <Nav.Link as={Link} to="/tag/PC">PC</Nav.Link>
             <Form onSubmit={handleSearch}>
               <InputGroup>
-              <Form.Control type="text" placeholder="Search here..." className=" mr-sm-2" onChange={(e) => setSearchInput(e.target.value)} />
+              <Form.Control type="text" placeholder="Search here..." className=" mr-sm-2" onChange={(e) => setSearchTerm(e.target.value)} />
                   <Button size="sm" type="submit">Search</Button>
               </InputGroup>
           </Form>

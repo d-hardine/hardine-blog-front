@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react'
 import ThemeContext from './configs/ThemeContext'
 import UserContext from './configs/UserContext'
 import { Routes, Route, Navigate } from 'react-router-dom'
+import Search from './pages/Search'
 
 function App() {
 
@@ -54,6 +55,7 @@ function App() {
           <Route path='/signup' element={<Signup />} />
           <Route path='/post/:postId' element={<Post />} />
           <Route path='/Tag/:tagName' element={<Tag />} />
+          <Route path='/search' element={<Search />} />
         </Routes>
       </UserContext.Provider>
     </ThemeContext.Provider>

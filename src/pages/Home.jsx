@@ -25,7 +25,6 @@ function Home() {
       try {
         const retrieveResponse = await api.get('/published-posts')
         if (retrieveResponse.status === 200) {
-          console.log(retrieveResponse.data.publishedPosts)
           setPublishedPosts(retrieveResponse.data.publishedPosts)
         }
       } catch (err) {
