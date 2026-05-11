@@ -40,7 +40,7 @@ function Home() {
   return (
     <>
       <NavigationBar />
-      {isLoading ? (<Spinner animation="border" variant="info" />) : (
+      {!isLoading && (
       <Container>
         <Row>
           <Carousel className="mt-4 " data-bs-theme="light">
@@ -76,7 +76,7 @@ function Home() {
       </Container>
       )}
       <Container>
-        {isLoading ? (<Spinner animation="border" variant="info" />) : (
+        {isLoading ? (<div className="d-flex justify-content-center align-items-center" style={{height: '50vh'}}><Spinner animation="border" variant="info" /></div>) : (
           <Row className="pt-5">
             <Col className="col-lg-9">
               <h3 className="pb-3">Latest Articles</h3>

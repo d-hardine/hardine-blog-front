@@ -43,7 +43,7 @@ function Search() {
     <>
       <NavigationBar />
       <Container>
-        {isLoading ? (<Spinner animation="border" variant="info" />) : (
+        {isLoading ? (<div className="d-flex justify-content-center align-items-center" style={{height: '50vh'}}><Spinner animation="border" variant="info" /></div>) : (
           <Row className="pt-5">
             <Col className="col-lg-9">
               <h3 className="pb-3">Search: "{query}"</h3>
